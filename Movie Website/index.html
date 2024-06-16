@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search App</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        .pop-up {
+          top: 55px;
+         
+          display: flex;
+          align-items: center;
+            position: fixed;
+            width: 320px;
+            justify-content: center;
+            gap: 25px;
+            height: 100px;
+            border: #5daa8c 2px solid;
+           
+        }
+        .pop-up h3{
+          color:black ;
+        }
+        .pop-up button{
+          padding: 2px 8px;
+          background-color: aliceblue;
+        }
+        header {
+       
+            background-color: #222831;
+            color: #5daa8c;
+            display: flex;
+            padding: 12px;
+            gap: 15px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            height: 150px;
+        }
+        header input {
+          text-shadow: #ffff;
+          text-decoration: ;
+            border-radius: 25px;
+            color: rgb(159, 114, 48);
+            padding: 10px 55px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        header button {
+            padding: 8px 25px;
+            border-radius: 25px;
+            border-color: rgb(255, 255, 255);
+            background-color:#5daa8c;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        #search-form {
+            display: flex;
+            gap: 50px;
+            
+        }
+        button:hover{
+          cursor: pointer;
+        }
+        main {
+          
+            max-width: 1550px;
+            width: 1500;
+            margin: 0 auto;
+            height: 100%;
+            
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            color:#ffff ;
+            gap: 15px;
+          width: 600px;
+          height: 650px;
+            
+            background-color:#222831;
+        }
+        .poster {
+            width: 450px;
+            height: 350px;
+        }
+        .detail-container {
+            background-color: #5C8374;
+            width: 350px;
+            height: auto;
+        }
+        #movie-list{
+            margin: 15px auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 1600px;
+            gap: 25px;
+            padding-bottom: 25px;
+            max-width: 1500px;
+            height: auto;
+            flex-wrap: wrap;
+           
+        
+           
+        }
+        #movie-list p{
+            width: 550px;
+            padding-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header id="container">
+        <h1>Movie Search</h1>
+        <form id="search-form">
+            <input id="input" type="text" placeholder="search...">
+            <button id="button" type="submit">Go</button>
+        </form>
+    </header>
+    <main id="movie-list">
+        <!-- Movie cards will be appended here -->
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById('button');
+            const input = document.getElementById('input');
+            const body = document.querySelector('#container');
+            const movieList = document.getElementById('movie-list');
+
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+                const searchItem = input.value.trim();
+                if (searchItem === '') {
+                    let div = document.createElement('div');
+                    div.innerHTML = '<h3>Cannot be empty</h3>';
+                    div.classList.add('pop-up');
+                    let button2 = document.createElement("button")
+                    button2.innerText = 'Got It'
+                    button2.addEventListener('click', () => {
+                        body.removeChild(div);
+                    })
+                    div.style.backgroundColor = "#2244";
+                    div.style.color = "white";
+                    div.appendChild(button2);
+                    body.appendChild(div);  
+                } else {
+                    searchMovies(searchItem);
+                }
+            });
+            //genre object
+            const genre_object=  [ {
+
+           
+                "id": 28,
+                "name": "Action"
+              },
+              {
+                "id": 12,
+                "name": "Adventure"
+              },
+              {
+                "id": 16,
+                "name": "Animation"
+              },
+              {
+                "id": 35,
+                "name": "Comedy"
+              },
+              {
+                "id": 80,
+                "name": "Crime"
+              },
+              {
+                "id": 99,
+                "name": "Documentary"
+              },
+              {
+                "id": 18,
+                "name": "Drama"
+              },
+              {
+                "id": 10751,
+                "name": "Family"
+              },
+              {
+                "id": 14,
+                "name": "Fantasy"
+              },
+              {
+                "id": 36,
+                "name": "History"
+              },
+              {
+                "id": 27,
+                "name": "Horror"
+              },
+              {
+                "id": 10402,
+                "name": "Music"
+              },
+              {
+                "id": 9648,
+                "name": "Mystery"
+              },
+              {
+                "id": 10749,
+                "name": "Romance"
+              },
+              {
+                "id": 878,
+                "name": "Science Fiction"
+              },
+              {
+                "id": 10770,
+                "name": "TV Movie"
+              },
+              {
+                "id": 53,
+                "name": "Thriller"
+              },
+              {
+                "id": 10752,
+                "name": "War"
+              },
+              {
+                "id": 37,
+                "name": "Western"
+              }
+            
+            ];
+            let map;
+            const idNameMap = genre_object.reduce((map, obj) => {
+                map[obj.id] = obj.name;
+                console.log(map);
+                return map;
+            }, {});
+            
+            console.log(map);
+
+
+            async function searchMovies(searchItem) {
+                const apiKey = '25f53b34fb328e432f915ad8cea92e03';
+                const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchItem}`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                
+
+                movieList.innerHTML = ''; // Clear previous results
+
+                data.results.forEach(movie => {
+                    const card = document.createElement('div');
+                    card.classList.add('card');
+
+                    const title = document.createElement('h2');
+                    title.classList.add('movie-title');
+                    title.innerText = movie.original_title;
+                    card.appendChild(title);
+
+                    const poster = document.createElement('img');
+                    poster.classList.add('poster');
+                    poster.alt = "poster";
+                    poster.src = `https://image.tmdb.org/t/p/original${movie.poster_path}`;
+                    card.appendChild(poster);
+
+                    const date = document.createElement('p');
+                    date.innerText =  `Release Date: ${movie.release_date}`;
+                    card.appendChild(date);
+
+                    const genreList = document.createElement('p');
+                    const genreid=movie.genre_ids;
+                    const genreNames=genreid.map(id=>idNameMap[id]).join(',');
+                    genreList.innerText = `Genres: ${genreNames}.`; // Ideally, map IDs to names
+                    card.appendChild(genreList);
+                    
+                    //overview
+                    const overview=document.createElement('p');
+                    overview.innerText=`Overview: ${movie.overview}`;
+                    card.appendChild(overview);
+
+                    movieList.appendChild(card);
+                    console.log(data)
+
+                });
+            }
+        });
+    </script>
+</body>
+</html>
