@@ -1,5 +1,7 @@
 🎬 Movie Search App
 Welcome to the Movie Search App! This project allows users to search for movies and explore detailed information about them, including titles, release dates, genres, and overviews.
+![image](https://github.com/rishabhletscode/Movie-js/assets/131706326/95e4f7b9-238e-4e61-b2b5-8abbf70ca471)
+
 
 🚀 Features
 Search Functionality: Quickly find movies by title.
