@@ -1,0 +1,152 @@
+
+*{
+font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;      
+margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.pop-up {
+top: 20px;
+ position: absolute;
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+    box-shadow: 10px 10px;
+  
+    width: 500px;
+    justify-content: center;
+    gap: 25px;
+    height: 150px;
+    
+   
+}
+
+.pop-up h3{
+  color:black ;
+}
+.pop-up button{
+  padding: 2px 8px;
+  background-color: aliceblue;
+}
+header {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+position: fixed;
+  border-bottom: hsl(240, 29%, 84%) 3px solid;
+    background-color: #191919d3;
+    color: #a61b34;
+    display: flex;
+    padding: 12px;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 150px;
+    width: 100%;
+    
+    margin: 0 auto;
+  
+  
+}
+header input {
+  font-size: larger;
+  text-shadow: #ffff;
+
+    border-radius: 25px;
+    color: rgb(159, 114, 48);
+    padding: 10px 55px;
+    font-family: 'Times New Roman', Times, serif;
+}
+header button {
+    padding: 8px 25px;
+    border-radius: 25px;
+    border-color: rgb(255, 255, 255);
+    background-color:#5daa8c;
+    font-family: 'Times New Roman', Times, serif;
+}
+#search-form {
+    display: flex;
+    gap: 50px;
+    
+}
+body{
+ 
+  background-image: url('/images/movie-backgro.jpg');
+  background-attachment: fixed;
+ 
+
+
+
+}
+button:hover{
+  cursor: pointer;
+}
+main {
+  
+    max-width: 1550px;
+    width: 1500;
+    margin: 0 auto;
+    height: 100%;
+    
+}
+.card {
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    color:#ffff ;
+    gap: 15px;
+  width: 600px;
+  overflow: hidden;
+  max-height: 750px;
+  height: 650px;
+  box-shadow: outset #5daa8c;
+  border: hsl(240, 16%, 87%) 3px solid;
+  box-shadow: inset;
+    
+    background-color:#000000c3 ;
+ 
+
+    
+    
+}
+
+
+.poster {
+    width: 450px;
+    height: 350px;
+}
+.detail-container {
+    background-color: #5C8374;
+    width: 350px;
+    height: auto;
+}
+#movie-list{
+position:relative;
+   top: 150px;
+   min-height: 100%;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 1600px;
+    gap: 25px;
+    padding-bottom: 25px;
+    max-width: 1500px;
+    height: auto;
+    flex-wrap: wrap;
+   
+
+   
+}
+#movie-list p{
+    width: 550px;
+    padding-bottom: 15px;
+   
+   
+}
